@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :invoice do
-    customer_id nil
-    merchant_id nil
+    merchant
+    customer
     status "MyString"
   end
 end
