@@ -40,7 +40,20 @@ describe 'Invoices API' do
   end
 
   context 'GET /api/v1/invoices/:id/transactions' do
-    xit 'returns a collection of associated transactions' do
+    it 'returns a collection of associated transactions' do
+      invoice_id = create(:invoice).id
+      create_list(:transaction, 3, invoice_id: invoice_id)
+
+      get "/api/v1/invoices/#{invoice_id}/transactions"
+
+      transactions = JSON.parse(response.body)
+      transaction = transactions.first
+
+      expect(response).to be_successful
+      expect(transactions.count).to eq(3)
+      expect(transaction).to have_key('invoice_id')
+      expect(transaction).to have_key('credit_card_number')
+      expect(transaction).to have_key('result')    
     end
   end
 
