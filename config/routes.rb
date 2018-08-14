@@ -31,7 +31,11 @@ Rails.application.routes.draw do
           get '/invoice', to: 'transaction_invoice#show'
         end
       end
-      resources :customers, only: [:index, :show]
+      scope module: :customers do
+        resources :customers, only: [:index, :show] do
+          get '/invoices', to: 'customer_invoices#index'
+        end
+      end
     end
   end
 end
