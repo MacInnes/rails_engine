@@ -18,4 +18,17 @@ describe 'Items API' do
       expect(item).to have_key('merchant_id')
     end
   end
+
+  context 'GET /api/v1/items/:id' do
+    it 'sends a single item' do
+      id = create(:item).id
+
+      get "/api/v1/items/#{id}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item['id']).to eq(id)
+    end
+  end
 end
