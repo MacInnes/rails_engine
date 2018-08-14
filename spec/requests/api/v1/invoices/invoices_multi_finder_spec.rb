@@ -38,21 +38,26 @@ describe 'Invoices Multi Finder API' do
       expect(invoice).to have_key('merchant_id')
       expect(invoice).to have_key('status')
     end
-    #
-    # it 'returns all invoices by merchant id' do
-    #   invoice_merchant_id = create_list(:invoice, 3, id:).merchant_id
-    #
-    #   get "/api/v1/invoices/find_all?merchant_id=#{invoice_merchant_id}"
-    #
-    #   invoice = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(invoice['merchant_id']).to eq(invoice_merchant_id)
-    #   expect(invoice).to have_key('customer_id')
-    #   expect(invoice).to have_key('merchant_id')
-    #   expect(invoice).to have_key('status')
-    # end
-    #
+
+    it 'returns all invoices by merchant id' do
+      valid_merchant_id = create(:merchant).id
+      invalid_merchant_id = create(:merchant).id
+      create_list(:invoice, 3, merchant_id: valid_merchant_id)
+      create_list(:invoice, 3, merchant_id: invalid_merchant_id)
+
+      get "/api/v1/invoices/find_all?merchant_id=#{valid_merchant_id}"
+
+      invoices = JSON.parse(response.body)
+      invoice = invoices.first
+
+      expect(response).to be_successful
+      expect(invoices.count).to eq(3)
+      expect(invoice['merchant_id']).to eq(valid_merchant_id)
+      expect(invoice).to have_key('customer_id')
+      expect(invoice).to have_key('merchant_id')
+      expect(invoice).to have_key('status')
+    end
+
     # it 'returns all invoices by status' do
     #   invoice_status = create_list(:invoice, 3, id:).status
     #
