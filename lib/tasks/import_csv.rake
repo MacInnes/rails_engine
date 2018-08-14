@@ -32,6 +32,16 @@ task :import_customers => :environment do
   puts "Imported #{Customer.count} customers."
 end
 
+task :import_transactions => :environment do
+  puts "Importing transactions..."
+  csv_text = File.read('db/csv/transactions.csv')
+  csv = CSV.parse(csv_text, :headers => true)
+  csv.each do |row|
+    Transaction.create!(row.to_hash)
+  end
+  puts "Imported #{Transaction.count} transactions."
+end
+
 task :import_items => :environment do
   puts "Importing items..."
   csv_text = File.read('db/csv/items.csv')
