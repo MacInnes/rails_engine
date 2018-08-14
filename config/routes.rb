@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       end
       resources :customers, only: [:index, :show]
       resources :transactions, only: [:index, :show]
+      namespace :items do
+        get '/random', to: 'random_item#show'
+      end
       scope module: :items do
         resources :items, only: [:index, :show] do
           get '/merchant', to: 'item_merchant#show'
