@@ -37,6 +37,18 @@ describe 'Invoices API' do
   end
 
   context 'GET /api/v1/invoices/random' do
+    it 'returns a random invoice' do
+      create_list(:invoice, 3)
+
+      get '/api/v1/invoices/random'
+
+      invoice =  JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(invoice).to have_key('customer_id')
+      expect(invoice).to have_key('merchant_id')
+      expect(invoice).to have_key('status')
+    end
   end
 
   context 'GET /api/v1/invoices/:id/transactions' do
@@ -53,7 +65,7 @@ describe 'Invoices API' do
       expect(transactions.count).to eq(3)
       expect(transaction).to have_key('invoice_id')
       expect(transaction).to have_key('credit_card_number')
-      expect(transaction).to have_key('result')    
+      expect(transaction).to have_key('result')
     end
   end
 
