@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :merchants, only: [:index, :show]
       namespace :invoices do
+        get '/find', to: 'invoice_search#show'
         get '/random', to: 'random_invoice#show'
       end
       scope module: :invoices do
