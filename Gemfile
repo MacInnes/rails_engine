@@ -32,10 +32,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'simplecov'
+  gem 'pry'
 end
 
 group :test do
-  gem 'pry'
   gem 'shoulda-matchers'
 end
 

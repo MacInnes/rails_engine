@@ -14,7 +14,7 @@ describe 'Items API' do
       expect(items.count).to eq(3)
       expect(item).to have_key('name')
       expect(item).to have_key('description')
-      expect(item).to have_key('unit_price')
+      expect(item).to have_key('unit_price_to_currency')
       expect(item).to have_key('merchant_id')
     end
   end

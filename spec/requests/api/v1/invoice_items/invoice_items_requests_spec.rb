@@ -47,6 +47,12 @@ describe 'Invoice Items API' do
 
   context 'GET /api/v1/invoice_items/:id/invoice' do
     it 'returns the associated invoice' do
+      invoice = create(:invoice)
+      invoice_item = create(:invoice_item, invoice_id: invoice.id)
+
+      get "/api/v1/invoice_items/#{invoice_item.id}/invoice"
+
+      expect(response).to be_successful
     end
   end
 
