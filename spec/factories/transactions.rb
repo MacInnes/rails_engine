@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :transaction do
-    customer
-    merchant 
-    status "MyText"
-    created_at "2018-08-13 19:12:41"
-    updated_at "2018-08-13 19:12:41"
+    invoice
+    credit_card_number ""
+    credit_card_expiration_date "MyText"
+    result "MyText"
+    created_at "2018-08-13 20:49:53"
+    updated_at "2018-08-13 20:49:53"
   end
 end

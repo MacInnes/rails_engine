@@ -31,3 +31,13 @@ task :import_customers => :environment do
   end
   puts "Imported #{Customer.count} customers."
 end
+
+task :import_transactions => :environment do
+  puts "Importing transactions..."
+  csv_text = File.read('db/csv/transactions.csv')
+  csv = CSV.parse(csv_text, :headers => true)
+  csv.each do |row|
+    Transaction.create!(row.to_hash)
+  end
+  puts "Imported #{Transaction.count} transactions."
+end
