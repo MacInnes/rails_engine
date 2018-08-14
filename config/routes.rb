@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    namespace :v1 do
-      resources :merchants, only: [:index, :show]
+    namespace :v1 do  
       scope module: :invoices do
         resources :invoices, only: [:index, :show] do
           get '/invoice_items', to: 'invoice_invoice_items#index'
@@ -9,8 +8,6 @@ Rails.application.routes.draw do
           get '/merchant', to: 'invoice_merchant#show'
         end
       end
-      resources :customers, only: [:index, :show]
-      resources :transactions, only: [:index, :show]
       scope module: :items do
         resources :items, only: [:index, :show] do
           get '/merchant', to: 'item_merchant#show'
@@ -23,6 +20,9 @@ Rails.application.routes.draw do
           get '/item', to: 'invoice_item_item#show'
         end
       end
+      resources :merchants, only: [:index, :show]
+      resources :customers, only: [:index, :show]
+      resources :transactions, only: [:index, :show]
     end
   end
 end
