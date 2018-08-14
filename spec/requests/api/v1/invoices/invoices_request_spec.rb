@@ -29,4 +29,38 @@ describe 'Invoices API' do
       expect(invoice['id']).to eq(id)
     end
   end
+
+  context 'GET /api/v1/invoices/find?paramaters' do
+  end
+
+  context 'GET /api/v1/invoices/find_all?parameters' do
+  end
+
+  context 'GET /api/v1/invoices/random' do
+  end
+
+  context 'GET /api/v1/invoices/:id/transactions' do
+    it 'returns a collection of associated transactions' do
+    end
+  end
+
+  context 'GET /api/v1/invoices/:id/invoice_items' do
+    it 'returns a collection of associated invoice items' do
+    end
+  end
+
+  context 'GET /api/v1/invoices/:id/items' do
+    it 'returns a collection of associated items' do
+    end
+  end
+
+  context 'GET /api/v1/invoices/:id/customer' do
+    it 'returns the associated customer' do
+    end
+  end
+
+  context 'GET /api/v1/invoices/:id/merchant' do
+    it 'returns the associated merchant' do
+    end
+  end
 end

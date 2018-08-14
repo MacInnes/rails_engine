@@ -31,4 +31,23 @@ describe 'Items API' do
       expect(item['id']).to eq(id)
     end
   end
+
+  context 'GET /api/v1/items/find?paramaters' do
+  end
+
+  context 'GET /api/v1/items/find_all?parameters' do
+  end
+
+  context 'GET /api/v1/items/random' do
+  end
+
+  context 'GET /api/v1/items/:id/invoice_items' do
+    it 'returns a collection of associated invoice items' do
+    end
+  end
+
+  context 'GET /api/v1/items/:id/merchant' do
+    it 'returns the associated merchant' do
+    end
+  end
 end
