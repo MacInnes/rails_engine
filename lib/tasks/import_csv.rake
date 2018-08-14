@@ -9,6 +9,7 @@ task :import_merchants => :environment do
   csv.each do |row|
     Merchant.create!(row.to_hash)
   end
+  puts "Imported #{Merchant.count} merchants."
 end
 
 task :import_invoices => :environment do
@@ -18,6 +19,7 @@ task :import_invoices => :environment do
   csv.each do |row|
     Invoice.create!(row.to_hash)
   end
+  puts "Imported #{Invoice.count} invoices."
 end
 
 task :import_customers => :environment do
@@ -27,4 +29,5 @@ task :import_customers => :environment do
   csv.each do |row|
     Customer.create!(row.to_hash)
   end
+  puts "Imported #{Customer.count} customers."
 end
