@@ -35,6 +35,7 @@ end
 
 group :test do
   gem 'pry'
+  gem 'shoulda-matchers'
 end
 
 group :development do
