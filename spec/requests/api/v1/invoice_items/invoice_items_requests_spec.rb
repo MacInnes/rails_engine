@@ -18,4 +18,21 @@ describe 'Invoice Items API' do
       expect(invoice_item).to have_key('unit_price')
     end
   end
+
+  context 'GET /api/v1/invoice_items/:id' do
+    it 'sends a single invoice item' do
+      id = create(:invoice_item).id
+
+      get "/api/v1/invoice_items/#{id}"
+
+      invoice_item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(invoice_item['id']).to eq(id)
+      expect(invoice_item).to have_key('item_id')
+      expect(invoice_item).to have_key('invoice_id')
+      expect(invoice_item).to have_key('quantity')
+      expect(invoice_item).to have_key('unit_price')
+    end
+  end
 end
