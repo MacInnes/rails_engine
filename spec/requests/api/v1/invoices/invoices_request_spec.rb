@@ -30,40 +30,6 @@ describe 'Invoices API' do
     end
   end
 
-  context 'GET /api/v1/invoices/find?paramaters' do
-    it 'returns an invoice by id' do
-      invoice_id = create(:invoice).id
-
-      get "/api/v1/invoices/find?id=#{invoice_id}"
-
-      invoice = JSON.parse(response.body)
-
-      expect(response).to be_successful
-      expect(invoice['id']).to eq(invoice_id)
-      expect(invoice).to have_key('customer_id')
-      expect(invoice).to have_key('merchant_id')
-      expect(invoice).to have_key('status')
-    end
-  end
-
-  context 'GET /api/v1/invoices/find_all?parameters' do
-  end
-
-  context 'GET /api/v1/invoices/random' do
-    it 'returns a random invoice' do
-      create_list(:invoice, 3)
-
-      get '/api/v1/invoices/random'
-
-      invoice =  JSON.parse(response.body)
-
-      expect(response).to be_successful
-      expect(invoice).to have_key('customer_id')
-      expect(invoice).to have_key('merchant_id')
-      expect(invoice).to have_key('status')
-    end
-  end
-
   context 'GET /api/v1/invoices/:id/transactions' do
     it 'returns a collection of associated transactions' do
       invoice_id = create(:invoice).id
