@@ -40,8 +40,7 @@ describe 'Invoices API' do
   end
 
   context 'GET /api/v1/invoices/:id/transactions' do
-    it 'returns a collection of associated transactions' do
-
+    xit 'returns a collection of associated transactions' do
     end
   end
 
@@ -90,7 +89,17 @@ describe 'Invoices API' do
   end
 
   context 'GET /api/v1/invoices/:id/merchant' do
-    xit 'returns the associated merchant' do
+    it 'returns the associated merchant' do
+      merchant_id = create(:merchant).id
+      invoice_id = create(:invoice, merchant_id: merchant_id).id
+
+      get "/api/v1/invoices/#{invoice_id}/merchant"
+
+      merchant = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(merchant['id']).to eq(merchant_id)
+      expect(merchant).to have_key('name')
     end
   end
 end
