@@ -75,7 +75,7 @@ describe 'Invoice Items API' do
       expect(item['id']).to eq(item_id)
       expect(item).to have_key('name')
       expect(item).to have_key('description')
-      expect(item).to have_key('unit_price_to_currency')
+      expect(item).to have_key('unit_price')
       expect(item).to have_key('merchant_id')
     end
   end

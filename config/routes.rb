@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :invoice_items, only: [:index, :show]
       get '/invoice_items/:invoice_item_id/invoice', to: 'invoice_item_invoice#show'
       get '/invoice_items/:invoice_item_id/item', to: 'invoice_item_item#show'
+      get '/items/:item_id/merchant', to: 'item_merchant#show'
+      get '/items/:item_id/invoice_items', to: 'item_invoice_items#index'
     end
   end
 end
