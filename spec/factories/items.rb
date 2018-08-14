@@ -1,8 +1,9 @@
 FactoryBot.define do
-  factory :invoice do
+  factory :item do
+    name "Banana"
+    description "It's yellow"
+    unit_price 1
     merchant
-    customer
-    status "Shipped"
     created_at "2018-08-13 17:03:43"
     updated_at "2018-08-13 17:03:43"
   end
