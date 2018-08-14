@@ -84,7 +84,18 @@ describe 'Invoices API' do
   end
 
   context 'GET /api/v1/invoices/:id/customer' do
-    xit 'returns the associated customer' do
+    it 'returns the associated customer' do
+      customer_id = create(:customer).id
+      invoice_id = create(:invoice, customer_id: customer_id).id
+
+      get "/api/v1/invoices/#{invoice_id}/customer"
+
+      customer = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(customer['id']).to eq(customer_id)
+      expect(customer).to have_key('first_name')
+      expect(customer).to have_key('last_name')
     end
   end
 
