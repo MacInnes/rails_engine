@@ -72,7 +72,7 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    it 'returns an item by unit created at' do
+    it 'returns an item by created at' do
       created_at = create(:item).created_at
 
       get "/api/v1/items/find?created_at=#{created_at}"
@@ -85,7 +85,17 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns an item by unit updated at' do
-    # end
+    it 'returns an item by updated at' do
+      updated_at = create(:item).updated_at
+
+      get "/api/v1/items/find?updated_at=#{updated_at}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
   end
 end
