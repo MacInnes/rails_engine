@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       resources :customers, only: [:index, :show]
       resources :transactions, only: [:index, :show]
       namespace :items do
+        get '/find', to: 'item_search#show'
+        get '/find_all', to: 'item_search#index'
         get '/random', to: 'random_item#show'
       end
       scope module: :items do

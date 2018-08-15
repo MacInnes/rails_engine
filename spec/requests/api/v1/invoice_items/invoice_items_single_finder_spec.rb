@@ -111,4 +111,20 @@ describe 'Invoice Items Single Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
   end
+
+  context 'GET /api/v1/invoice_items/random' do
+    it 'returns a random invoice item' do
+      create_list(:invoice_item, 3)
+
+      get '/api/v1/invoice_items/random'
+
+      invoice_item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(invoice_item).to have_key('item_id')
+      expect(invoice_item).to have_key('invoice_id')
+      expect(invoice_item).to have_key('quantity')
+      expect(invoice_item).to have_key('unit_price')
+    end
+  end
 end
