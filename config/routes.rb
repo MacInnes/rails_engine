@@ -41,6 +41,9 @@ Rails.application.routes.draw do
           get '/item', to: 'invoice_item_item#show'
         end
       end
+      namespace :merchants do
+        get '/most_revenue', to: 'merchant_revenue#index'
+      end
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
           get '/items', to: 'merchant_items#index'

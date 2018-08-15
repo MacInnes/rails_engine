@@ -74,7 +74,7 @@ describe 'Invoice Items Single Finder API' do
       invoice_item = JSON.parse(response.body)
 
       expect(response).to be_successful
-      expect(invoice_item['unit_price']).to eq((unit_price.to_f / 100).round(2).to_s)
+      expect(invoice_item['unit_price']).to eq('%.2f' % (unit_price.to_f / 100))
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
       expect(invoice_item).to have_key('quantity')
