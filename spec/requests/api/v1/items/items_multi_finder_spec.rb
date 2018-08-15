@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Item Multi Finder API' do
+describe 'Items Multi Finder API' do
   context 'GET /api/v1/items/find_all?paramaters' do
     it 'returns all items by id' do
       id = create(:item).id
