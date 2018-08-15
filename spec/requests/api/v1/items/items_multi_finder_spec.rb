@@ -124,17 +124,24 @@ describe 'Item Multi Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns all items by updated at' do
-    #   updated_at = create(:item).updated_at
-    #
-    #   get "/api/v1/items/find_all?updated_at=#{updated_at}"
-    #
-    #   item = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(item).to have_key('unit_price')
-    #   expect(item).to have_key('description')
-    #   expect(item).to have_key('merchant_id')
-    # end
+    it 'returns all items by updated at' do
+      valid_updated_at = '2012-03-27 14:54:09 UTC'
+      invalid_updated_at = '2013-04-28 12:44:29 UTC'
+      create_list(:item, 3, updated_at: valid_updated_at)
+      create_list(:item, 3, updated_at: invalid_updated_at)
+
+      get "/api/v1/items/find_all?updated_at=#{valid_updated_at}"
+
+      items = JSON.parse(response.body)
+      item = items.first
+
+      expect(response).to be_successful
+      expect(items.class).to eq(Array)
+      expect(items.count).to eq(3)
+      expect(item).to have_key('name')
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
   end
 end
