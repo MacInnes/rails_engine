@@ -35,4 +35,19 @@ describe 'Customer API' do
     expect(response_invoices.length).to eq(3)
     expect(first_invoice["customer_id"]).to eq(customer.id)
   end
+  it 'responds to /api/v1/customers/:id/transactions' do
+    merchant = create(:merchant)
+    customer = create(:customer)
+    invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
+    transactions = create_list(:transaction, 3, invoice_id: invoice.id)
+
+    get "/api/v1/customers/#{customer.id}/transactions"
+
+    response_transactions = JSON.parse(response.body)
+    first_transaction = response_transactions.first
+
+    expect(response).to be_successful
+    expect(response_transactions.count).to eq(3)
+    expect(first_transaction["invoice_id"]).to eq(invoice.id)
+  end
 end
