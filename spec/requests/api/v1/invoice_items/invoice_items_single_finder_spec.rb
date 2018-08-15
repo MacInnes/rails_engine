@@ -11,6 +11,7 @@ describe 'Invoice Single Finder API' do
       invoice_item = JSON.parse(response.body)
 
       expect(response).to be_successful
+
       expect(invoice_item['id']).to eq(id)
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
