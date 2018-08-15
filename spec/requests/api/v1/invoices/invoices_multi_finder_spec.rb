@@ -13,6 +13,7 @@ describe 'Invoices Multi Finder API' do
       invoice = invoices.first
 
       expect(response).to be_successful
+      expect(invoices.class).to eq(Array)
       expect(invoices.count).to eq(1)
       expect(invoice['id']).to eq(id)
       expect(invoice).to have_key('customer_id')
@@ -32,6 +33,7 @@ describe 'Invoices Multi Finder API' do
       invoice = invoices.first
 
       expect(response).to be_successful
+      expect(invoices.class).to eq(Array)
       expect(invoices.count).to eq(3)
       expect(invoice['customer_id']).to eq(valid_customer_id)
       expect(invoice).to have_key('customer_id')
@@ -51,6 +53,7 @@ describe 'Invoices Multi Finder API' do
       invoice = invoices.first
 
       expect(response).to be_successful
+      expect(invoices.class).to eq(Array)
       expect(invoices.count).to eq(3)
       expect(invoice['merchant_id']).to eq(valid_merchant_id)
       expect(invoice).to have_key('customer_id')
@@ -71,6 +74,7 @@ describe 'Invoices Multi Finder API' do
 
       expect(response).to be_successful
       expect(invoices.count).to eq(3)
+      expect(invoices.class).to eq(Array)
       expect(invoice['status']).to eq(valid_status)
       expect(invoice).to have_key('customer_id')
       expect(invoice).to have_key('merchant_id')
@@ -89,6 +93,7 @@ describe 'Invoices Multi Finder API' do
       invoice = invoices.first
 
       expect(response).to be_successful
+      expect(invoices.class).to eq(Array)
       expect(invoices.count).to eq(3)
       expect(invoice).to have_key('customer_id')
       expect(invoice).to have_key('merchant_id')
@@ -107,6 +112,7 @@ describe 'Invoices Multi Finder API' do
       invoice = invoices.first
 
       expect(response).to be_successful
+      expect(invoices.class).to eq(Array)
       expect(invoices.count).to eq(3)
       expect(invoice).to have_key('customer_id')
       expect(invoice).to have_key('merchant_id')

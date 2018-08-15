@@ -14,6 +14,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(1)
       expect(invoice_item['id']).to eq(valid_id)
       expect(invoice_item).to have_key('item_id')
@@ -34,6 +35,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item['item_id']).to eq(valid_item_id)
       expect(invoice_item).to have_key('item_id')
@@ -54,6 +56,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item['invoice_id']).to eq(valid_invoice_id)
       expect(invoice_item).to have_key('item_id')
@@ -74,6 +77,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item['quantity']).to eq(valid_quantity)
       expect(invoice_item).to have_key('item_id')
@@ -94,6 +98,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item['unit_price']).to eq((valid_unit_price.to_f / 100).round(2).to_s)
       expect(invoice_item).to have_key('item_id')
@@ -114,6 +119,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
@@ -133,6 +139,7 @@ describe 'Invoice Items Multi Finder API' do
       invoice_item = invoice_items.first
 
       expect(response).to be_successful
+      expect(invoice_items.class).to eq(Array)
       expect(invoice_items.count).to eq(3)
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
