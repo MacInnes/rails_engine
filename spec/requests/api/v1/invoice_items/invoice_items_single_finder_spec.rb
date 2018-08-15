@@ -95,16 +95,15 @@ describe 'Invoice Single Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
 
-    it 'returns an invoice item by id' do
-      id = 14
-      create(:invoice_item, id: id)
+    it 'returns an invoice item by updated at' do
+      updated_at = '2012-03-27 14:54:09 UTC'
+      create(:invoice_item, updated_at: updated_at)
 
-      get "/api/v1/invoice_items/find?id=#{id}"
+      get "/api/v1/invoice_items/find?updated_at=#{updated_at}"
 
       invoice_item = JSON.parse(response.body)
 
       expect(response).to be_successful
-      expect(invoice_item['id']).to eq(id)
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
       expect(invoice_item).to have_key('quantity')
