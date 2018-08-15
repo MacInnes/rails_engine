@@ -30,9 +30,20 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns an item by description' do
-    # end
-    #
+    it 'returns an item by description' do
+      description = create(:item).description
+
+      get "/api/v1/items/find?description=#{description}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item['description']).to eq(description)
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
     # it 'returns an item by unit price' do
     # end
     #
