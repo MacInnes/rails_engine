@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :merchants, only: [:index, :show]
+
       namespace :invoices do
         get '/find', to: 'invoice_search#show'
         get '/find_all', to: 'invoice_search#index'
         get '/random', to: 'random_invoice#show'
       end
+
       scope module: :invoices do
         resources :invoices, only: [:index, :show] do
           get '/invoice_items', to: 'invoice_invoice_items#index'
@@ -16,13 +17,13 @@ Rails.application.routes.draw do
           get '/transactions', to: 'invoice_transactions#index'
         end
       end
-      resources :customers, only: [:index, :show]
-      resources :transactions, only: [:index, :show]
+
       namespace :items do
         get '/find', to: 'item_search#show'
         get '/find_all', to: 'item_search#index'
         get '/random', to: 'random_item#show'
       end
+
       scope module: :items do
         resources :items, only: [:index, :show] do
           get '/merchant', to: 'item_merchant#show'
@@ -38,6 +39,23 @@ Rails.application.routes.draw do
         resources :invoice_items, only: [:index, :show] do
           get '/invoice', to: 'invoice_item_invoice#show'
           get '/item', to: 'invoice_item_item#show'
+        end
+      end
+      scope module: :merchants do
+        resources :merchants, only: [:index, :show] do
+          get '/items', to: 'merchant_items#index'
+          get '/invoices', to: 'merchant_invoices#index'
+        end
+      end
+      scope module: :transactions do
+        resources :transactions, only: [:index, :show] do
+          get '/invoice', to: 'transaction_invoice#show'
+        end
+      end
+      scope module: :customers do
+        resources :customers, only: [:index, :show] do
+          get '/invoices', to: 'customer_invoices#index'
+          get '/transactions', to: 'customer_transactions#index'
         end
       end
     end

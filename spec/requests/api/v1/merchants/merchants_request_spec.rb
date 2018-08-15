@@ -15,9 +15,42 @@ describe 'Merchants API' do
     merchant = Merchant.create(name: "asdf")
 
     get "/api/v1/merchants/#{merchant.id}"
-    
+
     response_merchant = JSON.parse(response.body)
     expect(response).to be_successful
     expect(response_merchant["name"]).to eq(merchant["name"])
+  end
+  # TODO: get /api/v1/merchants/find?parameters
+  # TODO: get /api/v1/merchants/find_all?parameters
+  # TODO: get /api/v1/merchants/random
+
+  it 'responds to /api/v1/merchants/:id/items' do
+    merchant = create(:merchant)
+
+    create_list(:item, 3, merchant_id: merchant.id)
+
+    get "/api/v1/merchants/#{merchant.id}/items"
+
+    items = JSON.parse(response.body)
+    first_item = items.first
+
+    expect(response).to be_successful
+    expect(items.count).to eq(3)
+    expect(first_item['merchant_id']).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/:id/invoices' do
+    merchant = create(:merchant)
+    customer = create(:customer)
+
+    create_list(:invoice, 3, merchant_id: merchant.id, customer_id: customer.id)
+
+    get "/api/v1/merchants/#{merchant.id}/invoices"
+
+    invoices = JSON.parse(response.body)
+    first_invoice = invoices.first
+
+    expect(response).to be_successful
+    expect(invoices.count).to eq(3)
+    expect(first_invoice["merchant_id"]).to eq(merchant.id)
   end
 end

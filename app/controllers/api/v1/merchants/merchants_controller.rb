@@ -1,4 +1,4 @@
-class Api::V1::MerchantsController < ApplicationController
+class Api::V1::Merchants::MerchantsController < ApplicationController
   def index
     render json: Merchant.all
   end
