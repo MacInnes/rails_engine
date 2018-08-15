@@ -16,9 +16,20 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns an item by name' do
-    # end
-    #
+    it 'returns an item by name' do
+      name = create(:item).name
+
+      get "/api/v1/items/find?name=#{name}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item['name']).to eq(name)
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
     # it 'returns an item by description' do
     # end
     #
