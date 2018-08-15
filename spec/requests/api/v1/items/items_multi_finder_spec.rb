@@ -14,25 +14,33 @@ describe 'Item Multi Finder API' do
       expect(items.class).to eq(Array)
       expect(items.count).to eq(1)
       expect(item['id']).to eq(id)
+      expect(item).to have_key('name')
       expect(item).to have_key('unit_price')
       expect(item).to have_key('description')
       expect(item).to have_key('merchant_id')
     end
-    #
-    # it 'returns all items by name' do
-    #   name = create(:item).name
-    #
-    #   get "/api/v1/items/find_all?name=#{name}"
-    #
-    #   item = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(item['name']).to eq(name)
-    #   expect(item).to have_key('unit_price')
-    #   expect(item).to have_key('description')
-    #   expect(item).to have_key('merchant_id')
-    # end
-    #
+
+    it 'returns all items by name' do
+      valid_name = 'Item Qui Esse'
+      invalid_name = 'Item Autem Minima'
+      create_list(:item, 3, name: valid_name)
+      create_list(:item, 3, name: invalid_name)
+
+      get "/api/v1/items/find_all?name=#{valid_name}"
+
+      items = JSON.parse(response.body)
+      item = items.first
+
+      expect(response).to be_successful
+      expect(items.class).to eq(Array)
+      expect(items.count).to eq(3)
+      expect(item['name']).to eq(valid_name)
+      expect(item).to have_key('name')
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
     # it 'returns all items by description' do
     #   description = create(:item).description
     #
