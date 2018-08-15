@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Invoice Single Finder API' do
+describe 'Invoice Items Single Finder API' do
   context 'GET /api/v1/invoice_items/find?paramaters' do
     it 'returns an invoice item by id' do
       id = 14

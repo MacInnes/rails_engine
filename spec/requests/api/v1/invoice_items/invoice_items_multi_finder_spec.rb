@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Invoice Multi Finder API' do
+describe 'Invoice Items Multi Finder API' do
   context 'GET /api/v1/invoice_items/find_all?paramaters' do
     it 'returns all invoice items by id' do
       id = 14
@@ -19,23 +19,27 @@ describe 'Invoice Multi Finder API' do
       expect(invoice_item).to have_key('quantity')
       expect(invoice_item).to have_key('unit_price')
     end
-    #
-    # it 'returns all invoice items by item id' do
-    #   item_id = create(:item).id
-    #   create(:invoice_item, item_id: item_id)
-    #
-    #   get "/api/v1/invoice_items/find_all?item_id=#{item_id}"
-    #
-    #   invoice_item = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(invoice_item['item_id']).to eq(item_id)
-    #   expect(invoice_item).to have_key('item_id')
-    #   expect(invoice_item).to have_key('invoice_id')
-    #   expect(invoice_item).to have_key('quantity')
-    #   expect(invoice_item).to have_key('unit_price')
-    # end
-    #
+
+    it 'returns all invoice items by item id' do
+      valid_item_id = create(:item).id
+      invalid_item_id = create(:item).id
+      create_list(:invoice_item, 3, item_id: valid_item_id)
+      create_list(:invoice_item, 4, item_id: invalid_item_id)
+
+      get "/api/v1/invoice_items/find_all?item_id=#{valid_item_id}"
+
+      invoice_items = JSON.parse(response.body)
+      invoice_item = invoice_items.first
+
+      expect(response).to be_successful
+      expect(invoice_items.count).to eq(3)
+      expect(invoice_item['item_id']).to eq(valid_item_id)
+      expect(invoice_item).to have_key('item_id')
+      expect(invoice_item).to have_key('invoice_id')
+      expect(invoice_item).to have_key('quantity')
+      expect(invoice_item).to have_key('unit_price')
+    end
+
     # it 'returns all invoice items by invoice_id' do
     #   invoice_id = create(:invoice).id
     #   create(:invoice_item, invoice_id: invoice_id)
