@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       end
       namespace :merchants do
         get '/most_revenue', to: 'merchant_revenue#index'
+        get '/most_items', to: 'merchant_items_quantity#index'
       end
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
