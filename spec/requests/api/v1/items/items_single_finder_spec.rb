@@ -44,9 +44,20 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns an item by unit price' do
-    # end
-    #
+    it 'returns an item by unit price' do
+      unit_price = create(:item).unit_price
+
+      get "/api/v1/items/find?unit_price=#{unit_price}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item['unit_price']).to eq((unit_price.to_f / 100).round(2).to_s)
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
     # it 'returns an item by merchant price' do
     # end
     #
