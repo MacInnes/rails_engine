@@ -34,16 +34,16 @@ describe 'Invoice Single Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
 
-    it 'returns an invoice item by id' do
-      id = 14
-      create(:invoice_item, id: id)
+    it 'returns an invoice item by invoice_id' do
+      invoice_id = create(:invoice).id
+      create(:invoice_item, invoice_id: invoice_id)
 
-      get "/api/v1/invoice_items/find?id=#{id}"
+      get "/api/v1/invoice_items/find?invoice_id=#{invoice_id}"
 
       invoice_item = JSON.parse(response.body)
 
       expect(response).to be_successful
-      expect(invoice_item['id']).to eq(id)
+      expect(invoice_item['invoice_id']).to eq(invoice_id)
       expect(invoice_item).to have_key('item_id')
       expect(invoice_item).to have_key('invoice_id')
       expect(invoice_item).to have_key('quantity')
