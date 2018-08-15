@@ -10,6 +10,7 @@ class Api::V1::InvoiceItems::InvoiceItemSearchController < ApplicationController
   private
 
   def invoice_item_search_params
+    params[:unit_price] = params[:unit_price].delete('.').to_i if params[:unit_price]
     params.permit(:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at)
   end
 end
