@@ -35,7 +35,7 @@ describe 'Invoice Items Single Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
 
-    it 'returns an invoice item by invoice_id' do
+    it 'returns an invoice item by invoice id' do
       invoice_id = create(:invoice).id
       create(:invoice_item, invoice_id: invoice_id)
 

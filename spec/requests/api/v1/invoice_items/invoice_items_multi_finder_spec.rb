@@ -40,22 +40,26 @@ describe 'Invoice Items Multi Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
 
-    # it 'returns all invoice items by invoice_id' do
-    #   invoice_id = create(:invoice).id
-    #   create(:invoice_item, invoice_id: invoice_id)
-    #
-    #   get "/api/v1/invoice_items/find_all?invoice_id=#{invoice_id}"
-    #
-    #   invoice_item = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(invoice_item['invoice_id']).to eq(invoice_id)
-    #   expect(invoice_item).to have_key('item_id')
-    #   expect(invoice_item).to have_key('invoice_id')
-    #   expect(invoice_item).to have_key('quantity')
-    #   expect(invoice_item).to have_key('unit_price')
-    # end
-    #
+    it 'returns all invoice items by invoice id' do
+      valid_invoice_id = create(:invoice).id
+      invalid_invoice_id = create(:invoice).id
+      create_list(:invoice_item, 3, invoice_id: valid_invoice_id)
+      create_list(:invoice_item, 4, invoice_id: invalid_invoice_id)
+
+      get "/api/v1/invoice_items/find_all?invoice_id=#{valid_invoice_id}"
+
+      invoice_items = JSON.parse(response.body)
+      invoice_item = invoice_items.first
+
+      expect(response).to be_successful
+      expect(invoice_items.count).to eq(3)
+      expect(invoice_item['invoice_id']).to eq(valid_invoice_id)
+      expect(invoice_item).to have_key('item_id')
+      expect(invoice_item).to have_key('invoice_id')
+      expect(invoice_item).to have_key('quantity')
+      expect(invoice_item).to have_key('unit_price')
+    end
+
     # it 'returns all invoice items by quantity' do
     #   quantity = create(:invoice_item).quantity
     #
