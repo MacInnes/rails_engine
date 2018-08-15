@@ -36,15 +36,6 @@ describe 'Invoice Items API' do
     end
   end
 
-  context 'GET /api/v1/invoice_items/find?paramaters' do
-  end
-
-  context 'GET /api/v1/invoice_items/find_all?parameters' do
-  end
-
-  context 'GET /api/v1/invoice_items/random' do
-  end
-
   context 'GET /api/v1/invoice_items/:id/invoice' do
     it 'returns the associated invoice' do
       invoice_id = create(:invoice).id
