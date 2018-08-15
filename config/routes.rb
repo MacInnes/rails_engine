@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         end
       end
       namespace :invoice_items do
+        get '/find', to: 'invoice_item_search#show'
+        get '/find_all', to: 'invoice_item_search#index'
         get '/random', to: 'random_invoice_item#show'
       end
       scope module: :invoice_items do
