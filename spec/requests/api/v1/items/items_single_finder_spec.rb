@@ -58,12 +58,33 @@ describe 'Item Single Finder API' do
       expect(item).to have_key('merchant_id')
     end
 
-    # it 'returns an item by merchant price' do
-    # end
-    #
-    # it 'returns an item by unit created at' do
-    # end
-    #
+    it 'returns an item by merchant id' do
+      merchant_id = create(:item).merchant_id
+
+      get "/api/v1/items/find?merchant_id=#{merchant_id}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item['merchant_id']).to eq(merchant_id)
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
+    it 'returns an item by unit created at' do
+      created_at = create(:item).created_at
+
+      get "/api/v1/items/find?created_at=#{created_at}"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(item).to have_key('unit_price')
+      expect(item).to have_key('description')
+      expect(item).to have_key('merchant_id')
+    end
+
     # it 'returns an item by unit updated at' do
     # end
   end
