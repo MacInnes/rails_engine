@@ -82,21 +82,26 @@ describe 'Invoice Items Multi Finder API' do
       expect(invoice_item).to have_key('unit_price')
     end
 
-    # it 'returns all invoice items by unit_price' do
-    #   unit_price = create(:invoice_item).unit_price
-    #
-    #   get "/api/v1/invoice_items/find_all?unit_price=#{unit_price}"
-    #
-    #   invoice_item = JSON.parse(response.body)
-    #
-    #   expect(response).to be_successful
-    #   expect(invoice_item['unit_price']).to eq((unit_price.to_f / 100).round(2).to_s)
-    #   expect(invoice_item).to have_key('item_id')
-    #   expect(invoice_item).to have_key('invoice_id')
-    #   expect(invoice_item).to have_key('quantity')
-    #   expect(invoice_item).to have_key('unit_price')
-    # end
-    #
+    it 'returns all invoice items by unit_price' do
+      valid_unit_price = 2934
+      invalid_unit_price = 1255
+      create_list(:invoice_item, 3, unit_price: valid_unit_price)
+      create_list(:invoice_item, 3, unit_price: invalid_unit_price)
+
+      get "/api/v1/invoice_items/find_all?unit_price=#{valid_unit_price}"
+
+      invoice_items = JSON.parse(response.body)
+      invoice_item = invoice_items.first
+
+      expect(response).to be_successful
+      expect(invoice_items.count).to eq(3)
+      expect(invoice_item['unit_price']).to eq((valid_unit_price.to_f / 100).round(2).to_s)
+      expect(invoice_item).to have_key('item_id')
+      expect(invoice_item).to have_key('invoice_id')
+      expect(invoice_item).to have_key('quantity')
+      expect(invoice_item).to have_key('unit_price')
+    end
+
     # it 'returns all invoice items by created_at' do
     #   created_at = '2012-03-27 14:54:09 UTC'
     #   create(:invoice_item, created_at: created_at)
