@@ -48,6 +48,9 @@ Rails.application.routes.draw do
         get '/most_revenue', to: 'merchant_revenue#index'
         get '/most_items', to: 'merchant_items_quantity#index'
         get '/revenue', to: 'merchant_revenue#show'
+        get '/find', to: 'merchant_search#show'
+        get '/find_all', to: 'merchant_search#index'
+        get '/random', to: 'merchant_random#show'
       end
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
@@ -55,10 +58,20 @@ Rails.application.routes.draw do
           get '/invoices', to: 'merchant_invoices#index'
         end
       end
+      namespace :transactions do
+        get '/find', to: 'transaction_search#show'
+        get '/find_all', to: 'transaction_search#index'
+        get '/random', to: 'transaction_random#show'
+      end
       scope module: :transactions do
         resources :transactions, only: [:index, :show] do
           get '/invoice', to: 'transaction_invoice#show'
         end
+      end
+      namespace :customers do
+        get '/find', to: 'customer_search#show'
+        get '/find_all', to: 'customer_search#index'
+        get '/random', to: 'customer_random#show'
       end
       scope module: :customers do
         resources :customers, only: [:index, :show] do

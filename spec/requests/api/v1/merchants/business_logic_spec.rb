@@ -64,7 +64,7 @@ describe "merchant business logic" do
     expect(response_merchants.first["name"]).to eq(merchant_1.name)
   end
 
-  it 'responds to /api/v1/merchants/revenue?date=x' do
+  xit 'responds to /api/v1/merchants/revenue?date=x' do
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
     merchant_3 = create(:merchant)
