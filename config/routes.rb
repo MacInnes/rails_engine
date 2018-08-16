@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         get '/random', to: 'random_item#show'
         get '/most_revenue', to: 'top_revenue#index'
         get '/most_items', to: 'most_sold#index'
+        get ':item_id/best_day', to: 'best_day#show'
       end
 
       scope module: :items do
