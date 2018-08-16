@@ -4,7 +4,7 @@ FactoryBot.define do
     credit_card_number ""
     credit_card_expiration_date "MyText"
     result "success"
-    created_at "2018-08-13 20:49:53 UTC"
-    updated_at "2018-08-13 20:49:53 UTC"
+    created_at "2018-08-13 20:49:53 UTC".to_date
+    updated_at "2018-08-13 20:49:53 UTC".to_date
   end
 end

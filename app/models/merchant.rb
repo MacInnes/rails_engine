@@ -26,10 +26,11 @@ class Merchant < ApplicationRecord
     date = date.to_date
     start_date = date.beginning_of_day
     end_date = date.end_of_day
+
     select('SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
-      .joins(:transactions, :invoice_items)
-      .except(transactions: {result: 'failed' })
-      .where('transactions.created_at BETWEEN ? AND ?', start_date, end_date)
+    .joins(:invoice_items)
+    .where('invoices.created_at BETWEEN ? AND ?', start_date, end_date)
+
   end
 
 end
