@@ -5,10 +5,13 @@ describe "merchant business logic" do
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
     merchant_3 = create(:merchant)
+
     customer = create(:customer)
+
     item_1 = create(:item, merchant_id: merchant_1.id)
     item_2 = create(:item, merchant_id: merchant_2.id)
     item_3 = create(:item, merchant_id: merchant_3.id)
+
     invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
     invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant_2.id)
     invoice_3 = create(:invoice, customer_id: customer.id, merchant_id: merchant_3.id)
