@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         get '/find_all', to: 'item_search#index'
         get '/random', to: 'random_item#show'
         get '/most_revenue', to: 'top_revenue#index'
+        get '/most_items', to: 'most_sold#index'
       end
 
       scope module: :items do
