@@ -42,4 +42,8 @@ class Merchant < ApplicationRecord
       .limit(1)
       .take
   end
+
+  def customers_with_pending_invoices
+    # SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE merchant_id = 77 EXCEPT SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE invoices.merchant_id = 77 AND result = 'success';
+  end
 end

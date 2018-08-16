@@ -132,4 +132,43 @@ describe "merchant business logic" do
       expect(customer['last_name']).to eq(customer_1.last_name)
     end
   end
+
+  context 'GET /api/v1/merchants/:id/customers_with_pending_invoices' do
+    it 'returns a collection of customers which have pending invoices' do
+      merchant = create(:merchant)
+
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      customer_3 = create(:customer)
+
+      item_1 = create(:item, merchant_id: merchant.id)
+      item_2 = create(:item, merchant_id: merchant.id)
+      item_3 = create(:item, merchant_id: merchant.id)
+
+      bad_date = "2017-08-13".to_date
+
+      invoice_1 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant.id)
+      invoice_2 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant.id)
+      invoice_3 = create(:invoice, customer_id: customer_3.id, merchant_id: merchant.id, created_at: bad_date)
+
+      create_list(:invoice_item, 5, item_id: item_1.id, invoice_id: invoice_1.id)
+      create_list(:invoice_item, 3, item_id: item_2.id, invoice_id: invoice_2.id)
+      create_list(:invoice_item, 1, item_id: item_3.id, invoice_id: invoice_3.id)
+
+      create(:transaction, invoice_id: invoice_1.id)
+      create(:transaction, invoice_id: invoice_2.id, result: 'failed')
+      create(:transaction, invoice_id: invoice_3.id, result: 'failed')
+
+      get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
+
+      customers = JSON.parse(response.body)
+      customer = customers.first
+
+      expect(response).to be_successful
+      expect(customers.count).to eq(2)
+      expect(customer['id']).to eq(customer_1.id)
+      expect(customer['first_name']).to eq(customer_1.first_name)
+      expect(customer['last_name']).to eq(customer_1.last_name)
+    end
+  end
 end
