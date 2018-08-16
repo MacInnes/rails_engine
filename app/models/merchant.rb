@@ -42,7 +42,7 @@ class Merchant < ApplicationRecord
       .limit(1)
       .take
   end
-  
+
   def revenue
     invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
       .joins(:transactions, :invoice_items)
@@ -53,7 +53,19 @@ class Merchant < ApplicationRecord
 
 
   def customers_with_pending_invoices
-    # SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE merchant_id = 77 EXCEPT SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE invoices.merchant_id = 77 AND result = 'success';
+    id = self.id
+    sql = "SELECT customers.*, invoices.* FROM invoices
+    INNER JOIN customers ON customers.id = invoices.customer_id
+    INNER JOIN transactions ON transactions.invoice_id = invoices.id
+    WHERE invoices.merchant_id = #{id}
+    EXCEPT
+    SELECT customers.*, invoices.* FROM invoices
+    INNER JOIN customers ON customers.id = invoices.customer_id
+    INNER JOIN transactions ON transactions.invoice_id = invoices.id
+    WHERE transactions.result = 'success';"
+
+    ActiveRecord::Base.connection.execute(sql)
+
   end
 
   def revenue_by_date(date)

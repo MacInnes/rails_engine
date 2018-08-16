@@ -155,17 +155,18 @@ describe "merchant business logic" do
       create_list(:invoice_item, 3, item_id: item_2.id, invoice_id: invoice_2.id)
       create_list(:invoice_item, 1, item_id: item_3.id, invoice_id: invoice_3.id)
 
-      create(:transaction, invoice_id: invoice_1.id)
-      create(:transaction, invoice_id: invoice_2.id, result: 'failed')
-      create(:transaction, invoice_id: invoice_3.id, result: 'failed')
+      create(:transaction, invoice_id: invoice_1.id, result: 'failed')
+      create(:transaction, invoice_id: invoice_2.id)
+      create(:transaction, invoice_id: invoice_3.id)
 
       get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
 
       customers = JSON.parse(response.body)
       customer = customers.first
 
+      byebug
       expect(response).to be_successful
-      expect(customers.count).to eq(2)
+      expect(customers.count).to eq(1)
       expect(customer['id']).to eq(customer_1.id)
       expect(customer['first_name']).to eq(customer_1.first_name)
       expect(customer['last_name']).to eq(customer_1.last_name)
