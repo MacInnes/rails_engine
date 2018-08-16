@@ -24,7 +24,7 @@ Rails.application.routes.draw do
         get '/random', to: 'random_item#show'
         get '/most_revenue', to: 'top_revenue#index'
         get '/most_items', to: 'most_sold#index'
-        get ':item_id/best_day', to: 'best_day#show'
+        get '/:item_id/best_day', to: 'best_day#show'
       end
 
       scope module: :items do
@@ -54,6 +54,8 @@ Rails.application.routes.draw do
         get '/find', to: 'merchant_search#show'
         get '/find_all', to: 'merchant_search#index'
         get '/random', to: 'merchant_random#show'
+        get '/:merchant_id/favorite_customer', to: 'favorite_customer#show'
+        get '/:merchant_id/customers_with_pending_invoices', to: 'customers_with_pending_invoices#index'
         get ':merchant_id/revenue', to: 'single_merchant_revenue#show'
       end
 

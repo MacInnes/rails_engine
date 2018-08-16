@@ -3,6 +3,7 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :transactions, through: :invoices
   has_many :invoice_items, through: :invoices
+  has_many :customers, through: :invoices
 
   def self.most_revenue(limit = 5)
     select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS merchant_total')
@@ -34,12 +35,25 @@ class Merchant < ApplicationRecord
       .take
   end
 
+  def favorite_customer
+    customers.select('customers.*, COUNT(customers.id) AS customer_count')
+      .group(:id)
+      .order('customer_count DESC')
+      .limit(1)
+      .take
+  end
+  
   def revenue
     invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
       .joins(:transactions, :invoice_items)
       .merge(Transaction.success)
       .limit(1)
       .take
+  end
+
+
+  def customers_with_pending_invoices
+    # SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE merchant_id = 77 EXCEPT SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE invoices.merchant_id = 77 AND result = 'success';
   end
 
   def revenue_by_date(date)
@@ -54,5 +68,4 @@ class Merchant < ApplicationRecord
       .limit(1)
       .take
   end
-
 end
