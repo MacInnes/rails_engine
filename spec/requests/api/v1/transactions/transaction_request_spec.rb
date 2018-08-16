@@ -141,5 +141,13 @@ describe 'Transaction API' do
     expect(response_transaction.first["id"]).to eq(transaction.id)
   end
 
+  it 'responds to /api/v1/transactions/random' do
+    create_list(:transaction, 4)
+
+    get '/api/v1/transactions/random'
+
+    expect(response).to be_successful
+  end
+
 
 end
