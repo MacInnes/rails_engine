@@ -22,6 +22,9 @@ Rails.application.routes.draw do
         get '/find', to: 'item_search#show'
         get '/find_all', to: 'item_search#index'
         get '/random', to: 'random_item#show'
+        get '/most_revenue', to: 'top_revenue#index'
+        get '/most_items', to: 'most_sold#index'
+        get ':item_id/best_day', to: 'best_day#show'
       end
 
       scope module: :items do
@@ -52,27 +55,33 @@ Rails.application.routes.draw do
         get '/find_all', to: 'merchant_search#index'
         get '/random', to: 'merchant_random#show'
       end
+
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
           get '/items', to: 'merchant_items#index'
           get '/invoices', to: 'merchant_invoices#index'
         end
       end
+
       namespace :transactions do
         get '/find', to: 'transaction_search#show'
         get '/find_all', to: 'transaction_search#index'
         get '/random', to: 'transaction_random#show'
       end
+
       scope module: :transactions do
         resources :transactions, only: [:index, :show] do
           get '/invoice', to: 'transaction_invoice#show'
         end
       end
+
       namespace :customers do
         get '/find', to: 'customer_search#show'
         get '/find_all', to: 'customer_search#index'
         get '/random', to: 'customer_random#show'
+        get ':customer_id/favorite_merchant', to: 'favorite_merchant#show'
       end
+
       scope module: :customers do
         resources :customers, only: [:index, :show] do
           get '/invoices', to: 'customer_invoices#index'

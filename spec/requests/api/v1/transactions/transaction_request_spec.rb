@@ -12,7 +12,6 @@ describe 'Transaction API' do
     expect(transactions.length).to eq(3)
   end
   it 'responds to /api/v1/transactions/:id' do
-
     merchant = Merchant.create(name: "sadf")
     customer = Customer.create(first_name: "asdf", last_name: "sfdjk")
     invoice = Invoice.create(merchant_id: merchant.id, customer_id: customer.id, status: "shipped")
