@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Item Business Logic' do
+describe 'Item Business Logic API' do
   context 'GET /api/v1/items/most_revenue?quantity=x' do
     it 'returns the top items x items ranked by total revenue generated' do
       merchant_1 = create(:merchant)

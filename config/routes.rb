@@ -66,6 +66,10 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :customers do
+        get ':customer_id/favorite_merchant', to: 'favorite_merchant#show'
+      end
+
       scope module: :customers do
         resources :customers, only: [:index, :show] do
           get '/invoices', to: 'customer_invoices#index'
