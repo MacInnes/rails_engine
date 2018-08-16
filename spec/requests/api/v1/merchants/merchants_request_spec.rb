@@ -20,8 +20,85 @@ describe 'Merchants API' do
     expect(response).to be_successful
     expect(response_merchant["name"]).to eq(merchant["name"])
   end
-  # TODO: get /api/v1/merchants/find?parameters
+  it 'responds to /api/v1/merchants/find?id=x' do
+    merchant = create(:merchant)
+
+    get "/api/v1/merchants/find?id=#{merchant.id}"
+
+    response_merchant = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchant["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find?name=x' do
+    merchant = create(:merchant)
+
+    get "/api/v1/merchants/find?name=#{merchant.name}"
+
+    response_merchant = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchant["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find?created_at=x' do
+    created_at = '2012-03-27 14:54:09 UTC'
+    merchant = create(:merchant, created_at: created_at)
+
+    get "/api/v1/merchants/find?created_at=#{created_at}"
+
+    response_merchant = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchant["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find?updated_at=x' do
+    updated_at = '2012-03-27 14:54:09 UTC'
+    merchant = create(:merchant, updated_at: updated_at)
+
+    get "/api/v1/merchants/find?updated_at=#{updated_at}"
+
+    response_merchant = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchant["id"]).to eq(merchant.id)
+  end
+
   # TODO: get /api/v1/merchants/find_all?parameters
+
+  it 'responds to /api/v1/merchants/find_all?id=x' do
+    merchant = create(:merchant)
+
+    get "/api/v1/merchants/find_all?id=#{merchant.id}"
+
+    response_merchants = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchants.first["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find_all?name=x' do
+    merchant = create(:merchant)
+
+    get "/api/v1/merchants/find_all?name=#{merchant.name}"
+
+    response_merchants = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchants.first["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find_all?created_at=x' do
+    created_at = '2012-03-27 14:54:09 UTC'
+    merchant = create(:merchant, created_at: created_at)
+
+    get "/api/v1/merchants/find_all?created_at=#{created_at}"
+
+    response_merchants = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchants.first["id"]).to eq(merchant.id)
+  end
+  it 'responds to /api/v1/merchants/find_all?updated_at=x' do
+    updated_at = '2012-03-27 14:54:09 UTC'
+    merchant = create(:merchant, updated_at: updated_at)
+
+    get "/api/v1/merchants/find_all?updated_at=#{updated_at}"
+
+    response_merchants = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_merchants.first["id"]).to eq(merchant.id)
+  end
   # TODO: get /api/v1/merchants/random
 
   it 'responds to /api/v1/merchants/:id/items' do
