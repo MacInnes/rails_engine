@@ -64,7 +64,7 @@ describe "merchant business logic" do
     expect(response_merchants.first["name"]).to eq(merchant_1.name)
   end
 
-  xit 'responds to /api/v1/merchants/revenue?date=x' do
+  it 'responds to /api/v1/merchants/revenue?date=x' do
     merchant_1 = create(:merchant)
     merchant_2 = create(:merchant)
     merchant_3 = create(:merchant)
@@ -79,11 +79,9 @@ describe "merchant business logic" do
     invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant_2.id)
     invoice_3 = create(:invoice, customer_id: customer.id, merchant_id: merchant_3.id, created_at: bad_date)
 
-
     create_list(:invoice_item, 5, item_id: item_1.id, invoice_id: invoice_1.id)
     create_list(:invoice_item, 3, item_id: item_2.id, invoice_id: invoice_2.id)
     create_list(:invoice_item, 1, item_id: item_3.id, invoice_id: invoice_3.id)
-
 
     create(:transaction, invoice_id: invoice_1.id)
     create(:transaction, invoice_id: invoice_2.id)
