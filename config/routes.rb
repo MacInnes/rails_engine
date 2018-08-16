@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         get '/find', to: 'item_search#show'
         get '/find_all', to: 'item_search#index'
         get '/random', to: 'random_item#show'
+        get '/most_revenue', to: 'top_revenue#index'
       end
 
       scope module: :items do
@@ -49,17 +50,20 @@ Rails.application.routes.draw do
         get '/most_items', to: 'merchant_items_quantity#index'
         get '/revenue', to: 'merchant_revenue#show'
       end
+
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
           get '/items', to: 'merchant_items#index'
           get '/invoices', to: 'merchant_invoices#index'
         end
       end
+
       scope module: :transactions do
         resources :transactions, only: [:index, :show] do
           get '/invoice', to: 'transaction_invoice#show'
         end
       end
+
       scope module: :customers do
         resources :customers, only: [:index, :show] do
           get '/invoices', to: 'customer_invoices#index'
