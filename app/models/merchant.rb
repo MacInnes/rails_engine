@@ -42,8 +42,30 @@ class Merchant < ApplicationRecord
       .limit(1)
       .take
   end
+  
+  def revenue
+    invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+      .joins(:transactions, :invoice_items)
+      .merge(Transaction.success)
+      .limit(1)
+      .take
+  end
+
 
   def customers_with_pending_invoices
     # SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE merchant_id = 77 EXCEPT SELECT customers.* FROM customers INNER JOIN invoices ON invoices.customer_id = customers.id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE invoices.merchant_id = 77 AND result = 'success';
+  end
+
+  def revenue_by_date(date)
+    date = date.to_date
+    start_date = date.beginning_of_day
+    end_date = date.end_of_day
+
+    invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+      .joins(:transactions, :invoice_items)
+      .merge(Transaction.success)
+      .where('invoices.created_at BETWEEN ? AND ?', start_date, end_date)
+      .limit(1)
+      .take
   end
 end

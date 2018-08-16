@@ -56,6 +56,7 @@ Rails.application.routes.draw do
         get '/random', to: 'merchant_random#show'
         get '/:merchant_id/favorite_customer', to: 'favorite_customer#show'
         get '/:merchant_id/customers_with_pending_invoices', to: 'customers_with_pending_invoices#index'
+        get ':merchant_id/revenue', to: 'single_merchant_revenue#show'
       end
 
       scope module: :merchants do

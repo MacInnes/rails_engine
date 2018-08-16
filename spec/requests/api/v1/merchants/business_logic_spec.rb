@@ -171,4 +171,38 @@ describe "merchant business logic" do
       expect(customer['last_name']).to eq(customer_1.last_name)
     end
   end
+  it 'responds to /api/v1/merchants/:id/revenue' do
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+    customer = create(:customer)
+    invoice = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    create_list(:invoice_item, 5, item_id: item.id, invoice_id: invoice.id)
+    create(:transaction, invoice_id: invoice.id)
+
+    get "/api/v1/merchants/#{merchant.id}/revenue"
+
+    response_total = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_total["revenue"]).to eq("500.00")
+  end
+  it 'responds to /api/v1/merchants/:id/revenue?date=x' do
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+    customer = create(:customer)
+
+    bad_date = "2017-08-13".to_date
+
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id, created_at: bad_date)
+    create_list(:invoice_item, 5, item_id: item.id, invoice_id: invoice_1.id)
+    create_list(:invoice_item, 3, item_id: item.id, invoice_id: invoice_2.id)
+    create(:transaction, invoice_id: invoice_1.id)
+    create(:transaction, invoice_id: invoice_2.id)
+
+    get "/api/v1/merchants/#{merchant.id}/revenue?date=2018-08-13"
+
+    response_total = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_total["revenue"]).to eq("500.00")
+  end
 end
