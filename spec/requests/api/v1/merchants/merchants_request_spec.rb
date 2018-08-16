@@ -58,9 +58,6 @@ describe 'Merchants API' do
     expect(response).to be_successful
     expect(response_merchant["id"]).to eq(merchant.id)
   end
-
-  # TODO: get /api/v1/merchants/find_all?parameters
-
   it 'responds to /api/v1/merchants/find_all?id=x' do
     merchant = create(:merchant)
 
@@ -99,7 +96,14 @@ describe 'Merchants API' do
     expect(response).to be_successful
     expect(response_merchants.first["id"]).to eq(merchant.id)
   end
-  # TODO: get /api/v1/merchants/random
+  it 'responds to /api/v1/merchants/random' do
+    create_list(:merchant, 4)
+
+    get '/api/v1/merchants/random'
+
+    expect(response).to be_successful
+  end
+
 
   it 'responds to /api/v1/merchants/:id/items' do
     merchant = create(:merchant)

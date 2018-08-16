@@ -39,4 +39,56 @@ describe 'Transaction API' do
     expect(response).to be_successful
     expect(transaction.invoice_id).to eq(invoice["id"])
   end
+
+  it 'responds to /api/v1/transactions/find?id=x' do
+    transaction = create(:transaction)
+
+    get "/api/v1/transactions/find?id=#{transaction.id}"
+
+    response_transaction = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_transaction["id"]).to eq(transaction.id)
+  end
+  it 'responds to /api/v1/transactions/find?result=x' do
+    result = "asdf"
+    transaction = create(:transaction, result: result)
+
+    get "/api/v1/transactions/find?result=#{result}"
+
+    response_transaction = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_transaction["id"]).to eq(transaction.id)
+  end
+  it 'responds to /api/v1/transactions/find?credit_card_number=x' do
+    credit_card_number = "123"
+    transaction = create(:transaction, credit_card_number: credit_card_number)
+
+    get "/api/v1/transactions/find?credit_card_number=#{credit_card_number}"
+
+    response_transaction = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_transaction["id"]).to eq(transaction.id)
+  end
+  it 'responds to /api/v1/transactions/find?credit_card_expiration_date=x' do
+    credit_card_expiration_date = "123"
+    transaction = create(:transaction, credit_card_expiration_date: credit_card_expiration_date)
+
+    get "/api/v1/transactions/find?credit_card_expiration_date=#{credit_card_expiration_date}"
+
+    response_transaction = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_transaction["id"]).to eq(transaction.id)
+  end
+  it 'responds to /api/v1/transactions/find?invoice_id=x' do
+    invoice_id = create(:invoice).id
+    transaction = create(:transaction, invoice_id: invoice_id)
+
+    get "/api/v1/transactions/find?invoice_id=#{invoice_id}"
+
+    response_transaction = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(response_transaction["id"]).to eq(transaction.id)
+  end
+
+
 end

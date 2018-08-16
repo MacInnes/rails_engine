@@ -50,12 +50,16 @@ Rails.application.routes.draw do
         get '/revenue', to: 'merchant_revenue#show'
         get '/find', to: 'merchant_search#show'
         get '/find_all', to: 'merchant_search#index'
+        get '/random', to: 'merchant_random#show'
       end
       scope module: :merchants do
         resources :merchants, only: [:index, :show] do
           get '/items', to: 'merchant_items#index'
           get '/invoices', to: 'merchant_invoices#index'
         end
+      end
+      namespace :transactions do
+        get '/find', to: 'transaction_search#show' 
       end
       scope module: :transactions do
         resources :transactions, only: [:index, :show] do
