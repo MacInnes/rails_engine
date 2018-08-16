@@ -54,6 +54,7 @@ Rails.application.routes.draw do
         get '/find', to: 'merchant_search#show'
         get '/find_all', to: 'merchant_search#index'
         get '/random', to: 'merchant_random#show'
+        get ':merchant_id/revenue', to: 'single_merchant_revenue#show'
       end
 
       scope module: :merchants do
