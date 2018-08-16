@@ -53,26 +53,21 @@ class Merchant < ApplicationRecord
 
 
   def customers_with_pending_invoices
-    id = self.id
-    sql = "SELECT customers.*, invoices.* FROM invoices
-    INNER JOIN customers ON customers.id = invoices.customer_id
+    customers.find_by_sql("SELECT customers.* FROM customers
+    INNER JOIN invoices ON customers.id = invoices.customer_id
     INNER JOIN transactions ON transactions.invoice_id = invoices.id
     WHERE invoices.merchant_id = #{id}
     EXCEPT
-    SELECT customers.*, invoices.* FROM invoices
-    INNER JOIN customers ON customers.id = invoices.customer_id
+    SELECT customers.* FROM customers
+    INNER JOIN invoices ON customers.id = invoices.customer_id
     INNER JOIN transactions ON transactions.invoice_id = invoices.id
-    WHERE transactions.result = 'success';"
-
-    ActiveRecord::Base.connection.execute(sql)
-
+    WHERE transactions.result = 'success' AND invoices.merchant_id = #{id};")
   end
 
   def revenue_by_date(date)
     date = date.to_date
     start_date = date.beginning_of_day
     end_date = date.end_of_day
-
     invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
       .joins(:transactions, :invoice_items)
       .merge(Transaction.success)

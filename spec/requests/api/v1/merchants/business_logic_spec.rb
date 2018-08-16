@@ -164,7 +164,6 @@ describe "merchant business logic" do
       customers = JSON.parse(response.body)
       customer = customers.first
 
-      byebug
       expect(response).to be_successful
       expect(customers.count).to eq(1)
       expect(customer['id']).to eq(customer_1.id)

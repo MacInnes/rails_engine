@@ -12,13 +12,14 @@ describe 'Customer API' do
     expect(customers.length).to eq(3)
   end
   it 'responds to /api/v1/customer/:id' do
-    customer = Customer.create(first_name: "asdf", last_name: "fkjhd")
+    customer = create(:customer)
 
     get "/api/v1/customers/#{customer.id}"
 
     response_customer = JSON.parse(response.body)
 
     expect(response).to be_successful
+
     expect(response_customer["name"]).to eq(customer[:name])
   end
   it 'responds to /api/v1/customers/:id/invoices' do

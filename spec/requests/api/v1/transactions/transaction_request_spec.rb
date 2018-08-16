@@ -12,10 +12,10 @@ describe 'Transaction API' do
     expect(transactions.length).to eq(3)
   end
   it 'responds to /api/v1/transactions/:id' do
-    merchant = Merchant.create(name: "sadf")
-    customer = Customer.create(first_name: "asdf", last_name: "sfdjk")
-    invoice = Invoice.create(merchant_id: merchant.id, customer_id: customer.id, status: "shipped")
-    transaction = Transaction.create(invoice_id: invoice.id, credit_card_number: 1234, result: "sadf")
+    merchant = create(:merchant, name: "sadf")
+    customer = create(:customer, first_name: "asdf", last_name: "sfdjk")
+    invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id, status: "shipped")
+    transaction = create(:transaction, invoice_id: invoice.id, credit_card_number: 1234, result: "sadf")
 
     get "/api/v1/transactions/#{transaction.id}"
 
