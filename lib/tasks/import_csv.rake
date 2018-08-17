@@ -39,7 +39,7 @@ task :import_data => :environment do
   csv.each do |row|
     Item.create!(row.to_hash)
   end
-  puts "Imported #{Item.count} items"
+  puts "Imported #{Item.count} items."
 
   puts "Importing invoice items..."
   csv_text = File.read('db/csv/invoice_items.csv')
@@ -47,7 +47,8 @@ task :import_data => :environment do
   csv.each do |row|
     InvoiceItem.create!(row.to_hash)
   end
-  puts "Imported #{InvoiceItem.count} invoice items"
+  puts "Imported #{InvoiceItem.count} invoice items."
+  puts 'All data successfully imported.'
 end
 
 task :import_merchants => :environment do
