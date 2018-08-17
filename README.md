@@ -45,6 +45,7 @@ For each of these 6 resources, there are endpoints for showing all records or a 
 
 In addition, there are a few related endpoints as well:
 * GET `/api/v1/(resource_name)/:id/(related_resource_name)`
+
 The related resources are:
 * Merchants: Items, Invoices
 * Invoices: Transactions, Invoice_items, Items, Customer, Merchant
