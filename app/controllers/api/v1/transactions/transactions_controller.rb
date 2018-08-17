@@ -1,5 +1,4 @@
 class Api::V1::Transactions::TransactionsController < ApplicationController
-
   def index
     render json: Transaction.all
   end
@@ -7,5 +6,4 @@ class Api::V1::Transactions::TransactionsController < ApplicationController
   def show
     render json: Transaction.find(params[:id])
   end
-
 end

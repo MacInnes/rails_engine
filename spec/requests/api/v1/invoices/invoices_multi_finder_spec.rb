@@ -4,7 +4,6 @@ describe 'Invoices Multi Finder API' do
   context 'GET /api/v1/invoices/find_all?parameters' do
     it 'returns all invoices by id' do
       id = 12
-
       create(:invoice, id: id)
 
       get "/api/v1/invoices/find_all?id=#{id}"

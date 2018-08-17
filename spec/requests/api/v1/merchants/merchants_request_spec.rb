@@ -103,8 +103,6 @@ describe 'Merchants API' do
 
     expect(response).to be_successful
   end
-
-
   it 'responds to /api/v1/merchants/:id/items' do
     merchant = create(:merchant)
 
