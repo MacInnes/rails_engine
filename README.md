@@ -18,6 +18,17 @@ rake import_data
 ```
 If everything is setup correctly, you should be able to run `rspec` from the command line to run our local test suite.
 
+# Gems used:
+* Active_Model_Serializers
+* Byebug
+* Factory-Bot
+* Faker
+* Pry
+* Rspec-Rails
+* SimpleCov
+* Shoulda-Matchers
+* Spring
+
 # API Endpoints:
 
 There are 6 main resources used in this application:
