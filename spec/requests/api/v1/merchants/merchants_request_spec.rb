@@ -12,13 +12,13 @@ describe 'Merchants API' do
     expect(merchants.count).to eq(3)
   end
   it 'responds to /api/v1/merchant/:id' do
-    merchant = Merchant.create(name: "asdf")
+    merchant = create(:merchant)
 
     get "/api/v1/merchants/#{merchant.id}"
 
     response_merchant = JSON.parse(response.body)
     expect(response).to be_successful
-    expect(response_merchant["name"]).to eq(merchant["name"])
+    expect(response_merchant["name"]).to eq(merchant.name)
   end
   it 'responds to /api/v1/merchants/find?id=x' do
     merchant = create(:merchant)

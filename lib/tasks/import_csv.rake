@@ -1,6 +1,5 @@
 require 'csv'
 
-
 task :import_data => :environment do
   puts "Importing merchants..."
   csv_text = File.read('db/csv/merchants.csv')
@@ -50,7 +49,6 @@ task :import_data => :environment do
   end
   puts "Imported #{InvoiceItem.count} invoice items"
 end
-
 
 task :import_merchants => :environment do
   puts "Importing merchants..."

@@ -1,4 +1,6 @@
 class Merchant < ApplicationRecord
+  validates_presence_of :name, :created_at, :updated_at
+
   has_many :items
   has_many :invoices
   has_many :transactions, through: :invoices
@@ -51,6 +53,17 @@ class Merchant < ApplicationRecord
       .take
   end
 
+  def revenue_by_date(date)
+    date = date.to_date
+    start_date = date.beginning_of_day
+    end_date = date.end_of_day
+    invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
+      .joins(:transactions, :invoice_items)
+      .merge(Transaction.success)
+      .where('invoices.created_at BETWEEN ? AND ?', start_date, end_date)
+      .limit(1)
+      .take
+  end
 
   def customers_with_pending_invoices
     customers.find_by_sql("SELECT customers.* FROM customers
@@ -62,17 +75,5 @@ class Merchant < ApplicationRecord
     INNER JOIN invoices ON customers.id = invoices.customer_id
     INNER JOIN transactions ON transactions.invoice_id = invoices.id
     WHERE transactions.result = 'success' AND invoices.merchant_id = #{id};")
-  end
-
-  def revenue_by_date(date)
-    date = date.to_date
-    start_date = date.beginning_of_day
-    end_date = date.end_of_day
-    invoices.select('SUM(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
-      .joins(:transactions, :invoice_items)
-      .merge(Transaction.success)
-      .where('invoices.created_at BETWEEN ? AND ?', start_date, end_date)
-      .limit(1)
-      .take
   end
 end

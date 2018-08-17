@@ -147,6 +147,4 @@ describe 'Transaction API' do
 
     expect(response).to be_successful
   end
-
-
 end
