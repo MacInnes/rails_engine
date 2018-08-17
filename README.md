@@ -1,6 +1,6 @@
 # RailsEngine
 
-RailsEngine is a Rails api application that provides data from a number of resources, and produces business logic for a number of different metrics.  It's built on Rails 5.1.6 and Postgresql 10.4, and returns JSON data at each endpoint.  This project was created by Colin Armstrong and Andrew Mockett for Turing's Backend Engineering program.
+RailsEngine is a Rails api application that provides data from a number of resources, and produces business logic for a number of different metrics.  It's built on Rails 5.1.6 and Postgresql 10.4, and returns JSON data at each endpoint.  This project was created by Colin Armstrong (github: colinwarmstrong) and Andrew Mockett(github: MacInnes) for Turing's Backend Engineering program.
 
 # Setup:
 
