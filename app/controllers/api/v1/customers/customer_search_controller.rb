@@ -1,5 +1,4 @@
 class Api::V1::Customers::CustomerSearchController < ApplicationController
-
   def show
     render json: Customer.find_by(customer_search_params)
   end
